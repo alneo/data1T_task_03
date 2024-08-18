@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  clickhouse-server:
+    image: yandex/clickhouse-server
+    container_name: clickhouse-server
+    ports:
+      - '8123:8123'
+      - '9000:9000'
+    volumes:
+      # По умолчанию сервер ClickHouse предоставляет учетную запись пользователя по умолчанию,
+      # которая не разрешена с помощью управления доступом на основе SQL, но имеет все права и допуски.
+      # Чтобы включить ее, нам нужно отредактировать файл конфигурации сервера.
+      - ./clickhouse/users.xml:/etc/clickhouse-server/users.xml
+      # Вынесем каталог для хранения баз данных в отдельную директорию.
+      - ./clickhouse/db:/var/lib/clickhouse
+    ulimits:
+      # Установим максимальное количество открытых файлов
+      nofile: 262144
