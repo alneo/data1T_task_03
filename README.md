@@ -32,20 +32,31 @@
 - Подключение к ClickHouse через DBeaver
 ![Logotype](./screenshots/step_02.png)
 - В DBeaver, используя SQL-редактор, выполните SQL-запрос для создания базы данных test.
+
 ```CREATE DATABASE IF NOT EXISTS test COMMENT 'Database TEST for data1t_task_03';```
+
 ![Logotype](./screenshots/step_03.png)
 - Аналогично создайте базу данных main.
+
 ```CREATE DATABASE IF NOT EXISTS main COMMENT 'Database TEST for data1t_task_03';```
+
 ![Logotype](./screenshots/step_04.png)
 - В базе данных main создайте роль с правами на чтение.
+
 ```CREATE ROLE r_read; GRANT SELECT ON main.* TO r_read; GRANT SHOW ON main.* TO r_read;```
+
 ![Logotype](./screenshots/step_05.png)
 - В базе данных main создайте роль с правами на запись.
+
 ```CREATE ROLE r_write; GRANT INSERT ON main.* TO r_write;```
+
 ![Logotype](./screenshots/step_06.png)
 - Для проверки создайте пользователя, назначьте ему одну из созданных ролей и сделайте простой запрос к БД, подтверждающий, что роль работает корректно. Сделайте скриншот.
+
 ```CREATE USER user_read IDENTIFIED WITH PLAINTEXT_PASSWORD BY 'pass1'; GRANT r_read TO user_read;```
+
 ![Logotype](./screenshots/step_07.png)
+## Проверка
 - Для проверки создадим соединение user_write и сделаем запросы
 ![Logotype](./screenshots/step_08.png)
 - Запрос на вставку данных для пользователя user_write
